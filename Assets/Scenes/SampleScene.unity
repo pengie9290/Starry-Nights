@@ -231,7 +231,7 @@ Transform:
   m_Children:
   - {fileID: 1097534633}
   m_Father: {fileID: 2023202398}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685294593
 GameObject:
@@ -262,7 +262,7 @@ Transform:
   m_Children:
   - {fileID: 812441694}
   m_Father: {fileID: 2023202398}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -631,6 +631,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5fc222b8c1b43a99da74834b667499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NightNumber: 1
+  IngameSeconds: 0
+  NightLength: 21600
+  TimeConversionFactor: 60
+  NightInProgress: 0
 --- !u!4 &1426080223
 Transform:
   m_ObjectHideFlags: 0
@@ -786,7 +791,7 @@ Transform:
   m_Children:
   - {fileID: 325026226}
   m_Father: {fileID: 2023202398}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1611422411
 GameObject:
@@ -910,9 +915,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1599914571}
-  - {fileID: 480185373}
   - {fileID: 685294594}
   - {fileID: 1609200939}
+  - {fileID: 480185373}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -928,3 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e85120f33edd4bd8acc7ed90dd48f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FrontView: {fileID: 1599914570}
+  RightView: {fileID: 685294593}
+  BackView: {fileID: 1609200938}
+  LeftView: {fileID: 480185372}
