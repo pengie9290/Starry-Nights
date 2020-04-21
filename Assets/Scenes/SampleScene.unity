@@ -437,6 +437,197 @@ Transform:
   m_Father: {fileID: 685294594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &841219877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 841219879}
+  - component: {fileID: 841219878}
+  m_Layer: 0
+  m_Name: ThreatNavManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &841219878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841219877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b119ba15cf4442486c3e110b41945c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rooms:
+  - ID: 0
+    camID: 0
+    PhoneID: -1
+    name: "Lab \u0394"
+    CreatureExits: 
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 1
+    camID: 1
+    PhoneID: -1
+    name: Containment Room
+    CreatureExits: 0200000003000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 2
+    camID: 2
+    PhoneID: -1
+    name: West Hall
+    CreatureExits: 0100000005000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 3
+    camID: 3
+    PhoneID: -1
+    name: East Hall
+    CreatureExits: 0100000006000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 4
+    camID: 4
+    PhoneID: 1
+    name: Lab 01
+    CreatureExits: 05000000
+    PowerbotExits: 08000000
+    PresentThreats: []
+  - ID: 5
+    camID: 2
+    PhoneID: -1
+    name: West Hall
+    CreatureExits: 02000000040000000600000009000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 6
+    camID: 3
+    PhoneID: -1
+    name: East Hall
+    CreatureExits: 0300000005000000070000000a000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 7
+    camID: 7
+    PhoneID: 2
+    name: Lab 02
+    CreatureExits: 06000000
+    PowerbotExits: 0b000000
+    PresentThreats: []
+  - ID: 8
+    camID: 8
+    PhoneID: 3
+    name: Lab 03
+    CreatureExits: 09000000
+    PowerbotExits: 040000000c000000
+    PresentThreats: []
+  - ID: 9
+    camID: 2
+    PhoneID: -1
+    name: West Hall
+    CreatureExits: 05000000080000000a0000000d000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 10
+    camID: 3
+    PhoneID: -1
+    name: East Hall
+    CreatureExits: 06000000090000000b0000000e000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 11
+    camID: 11
+    PhoneID: 4
+    name: Lab 04
+    CreatureExits: 0a000000
+    PowerbotExits: 070000000f000000
+    PresentThreats: []
+  - ID: 12
+    camID: 12
+    PhoneID: 5
+    name: Lab 05
+    CreatureExits: 0d000000
+    PowerbotExits: 08000000
+    PresentThreats: []
+  - ID: 13
+    camID: 2
+    PhoneID: -1
+    name: West Hall
+    CreatureExits: 090000000c0000000e00000010000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 14
+    camID: 3
+    PhoneID: -1
+    name: East Hall
+    CreatureExits: 0a0000000d0000000f00000011000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 15
+    camID: 15
+    PhoneID: 6
+    name: Lab 06
+    CreatureExits: 0e000000
+    PowerbotExits: 0b000000
+    PresentThreats: []
+  - ID: 16
+    camID: 2
+    PhoneID: -1
+    name: West Hall
+    CreatureExits: 0d00000012000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 17
+    camID: 3
+    PhoneID: -1
+    name: East Hall
+    CreatureExits: 0e00000012000000
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 18
+    camID: -1
+    PhoneID: -1
+    name: Security Office
+    CreatureExits: 
+    PowerbotExits: 01000000
+    PresentThreats: []
+  - ID: 19
+    camID: -1
+    PhoneID: -1
+    name: Building Exterior
+    CreatureExits: 
+    PowerbotExits: 
+    PresentThreats: []
+  - ID: 20
+    camID: -1
+    PhoneID: -1
+    name: Office Window
+    CreatureExits: 
+    PowerbotExits: 
+    PresentThreats: []
+--- !u!4 &841219879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841219877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6920724, y: -0.45798516, z: -0.14755037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,3 +1128,50 @@ MonoBehaviour:
   RightView: {fileID: 685294593}
   BackView: {fileID: 1609200938}
   LeftView: {fileID: 480185372}
+--- !u!1 &2096969662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096969663}
+  - component: {fileID: 2096969664}
+  m_Layer: 0
+  m_Name: TestBot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096969663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096969662}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6920724, y: -0.45798516, z: -0.14755037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2096969664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096969662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934a064e8602a4c25b8a4ae0b6fa5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Spawnpoint: 1
+  Location: 0
+  AILevel: 0
+  IsPowerbot: 1

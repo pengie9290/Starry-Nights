@@ -65,6 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\OfficeManager.cs" />
+    <Compile Include="Assets\Scripts\Room.cs" />
+    <Compile Include="Assets\Scripts\Threat.cs" />
+    <Compile Include="Assets\Scripts\ThreatNavManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/jeremyhuml/Desktop/Schoolwork/Intermediate Programming for Games/FINAL PROJECT - Starry Nights/Starry Nights/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
