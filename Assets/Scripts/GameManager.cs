@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //Makes GameManager a singleton (part
+        //Makes GameManager a singleton (part 2)
         if (GameManager.Instance == null) GameManager.Instance = this;
         else Destroy(gameObject);
     }

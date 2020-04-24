@@ -506,14 +506,14 @@ MonoBehaviour:
     camID: 2
     PhoneID: -1
     name: West Hall
-    CreatureExits: 02000000040000000600000009000000
+    CreatureExits: 020000000400000009000000
     PowerbotExits: 
     PresentThreats: []
   - ID: 6
     camID: 3
     PhoneID: -1
     name: East Hall
-    CreatureExits: 0300000005000000070000000a000000
+    CreatureExits: 03000000070000000a000000
     PowerbotExits: 
     PresentThreats: []
   - ID: 7
@@ -562,14 +562,14 @@ MonoBehaviour:
     camID: 2
     PhoneID: -1
     name: West Hall
-    CreatureExits: 090000000c0000000e00000010000000
+    CreatureExits: 090000000c00000010000000
     PowerbotExits: 
     PresentThreats: []
   - ID: 14
     camID: 3
     PhoneID: -1
     name: East Hall
-    CreatureExits: 0a0000000d0000000f00000011000000
+    CreatureExits: 0a0000000f00000011000000
     PowerbotExits: 
     PresentThreats: []
   - ID: 15
@@ -1173,5 +1173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spawnpoint: 1
   Location: 0
-  AILevel: 0
+  AILevel: 5
   IsPowerbot: 1
+  MoveTime: 0.5
+  RemainingTime: 5
