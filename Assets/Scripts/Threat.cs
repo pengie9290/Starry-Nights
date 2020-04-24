@@ -19,7 +19,7 @@ public class Threat : MonoBehaviour
     {
         Location = Spawnpoint;
         RemainingTime = MoveTime;
-        Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+        //Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
     }
 
     void Update()
@@ -32,7 +32,7 @@ public class Threat : MonoBehaviour
                 {
                     DetermineNextStep();
                 }
-                Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+                //Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
             }
         }
     }
