@@ -5,21 +5,57 @@ using UnityEngine;
 public class Threat : MonoBehaviour
 {
     public int Spawnpoint;
-    public int Location;
+    public int Location
+    {
+        get
+        {
+            return location;
+        }
+        set
+        {
+            if (value == location) return;
+            else
+            {
+                if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
+                {
+                    var room = ThreatNavManager.Instance.Rooms[location];
+                    room.ExitRoom(this);
+                }
+                location = value;
+                if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
+                {
+                    var room = ThreatNavManager.Instance.Rooms[location];
+                    room.EnterRoom(this);
+                }
+            }
+            CameraControl.Instance.UpdateCameras(ThreatID);
+        }
+    }
+    public int location;
     public int AILevel = 0;
-
-    public bool IsPowerbot = false;
 
     public float MoveTime = 5;
     public float RemainingTime = 5;
 
     private int PreviousLocation = -1;
 
+    //ID 0 = Powerbot
+    public int ThreatID = 0;
+    public bool IsPowerbot
+    {
+        get
+        {
+            return ThreatID == 0;
+        }
+    }
+
+
     void Start()
     {
+        ThreatNavManager.Instance.RegisterThreat(this);
         Location = Spawnpoint;
         RemainingTime = MoveTime;
-        //Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+        Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
     }
 
     void Update()
@@ -32,7 +68,7 @@ public class Threat : MonoBehaviour
                 {
                     DetermineNextStep();
                 }
-                //Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+                Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
             }
         }
     }

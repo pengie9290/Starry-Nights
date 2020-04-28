@@ -10,6 +10,21 @@ public class ThreatNavManager : MonoBehaviour
     //Stores map of threat locations
     public List<Room> Rooms = new List<Room>();
 
+    //Stores list of all threats, active or otherwise
+    public List<Threat> Threats = new List<Threat>();
+
+    //Populates list of threats
+    public void RegisterThreat(Threat threat)
+    {
+        if (!Threats.Contains(threat)) Threats.Add(threat);
+    }
+
+    //Depopulates list of threats
+    public void RemoveThreat(Threat threat)
+    {
+        if (Threats.Contains(threat)) Threats.Remove(threat);
+    }
+
 
     void Start()
     {
@@ -81,5 +96,15 @@ public class ThreatNavManager : MonoBehaviour
     void Update()
     {
         //RoomTests();
+    }
+
+    //Finds location of a specific threat
+    public int GetThreatLocation(int threatID)
+    {
+        foreach (var threat in Threats)
+        {
+            if (threat.ThreatID == threatID) return threat.location;
+        }
+        return -1;
     }
 }
