@@ -40,6 +40,11 @@ public class Threat : MonoBehaviour
     private int PreviousLocation = -1;
 
     //ID 0 = Powerbot
+    //ID 1 = Crawler
+    //ID 2 = Alpha
+    //ID 3 = Beta
+    //ID 4 = Serpent
+    //ID 5 = [REDACTED]
     public int ThreatID = 0;
     public bool IsPowerbot
     {
@@ -55,6 +60,8 @@ public class Threat : MonoBehaviour
         ThreatNavManager.Instance.RegisterThreat(this);
         Location = Spawnpoint;
         RemainingTime = MoveTime;
+        var room = ThreatNavManager.Instance.Rooms[location];
+        room.EnterRoom(this);
         Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
     }
 

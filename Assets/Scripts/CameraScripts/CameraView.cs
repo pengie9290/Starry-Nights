@@ -36,6 +36,7 @@ public class CameraView : MonoBehaviour
             var room = ThreatNavManager.Instance.Rooms[Rooms[position]];
             foreach(var threat in room.PresentThreats)
             {
+                if (ActiveThreats.ContainsKey(threat.ThreatID)) ActiveThreats.Remove(threat.ThreatID);
                 ActiveThreats.Add(threat.ThreatID, position);
                 FoundThreats.Add(threat.ThreatID);
             }

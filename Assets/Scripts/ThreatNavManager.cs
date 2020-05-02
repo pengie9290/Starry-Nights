@@ -26,7 +26,7 @@ public class ThreatNavManager : MonoBehaviour
     }
 
 
-    void Start()
+    void Awake()
     {
         //Sets ThreatNavManager as a singleton (part 2)
         if (ThreatNavManager.Instance == null) ThreatNavManager.Instance = this;

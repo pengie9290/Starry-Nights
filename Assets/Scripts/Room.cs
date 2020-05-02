@@ -40,7 +40,8 @@ public class Room
     //Adds a threat to PresentThreats when they enter the room
     public void EnterRoom(Threat enteringThreat)
     {
-        PresentThreats.Add(enteringThreat);
+        Debug.Log(enteringThreat.ThreatID + "says Hello!");
+        if (!PresentThreats.Contains(enteringThreat)) PresentThreats.Add(enteringThreat);
     }
 
     //Removes a threat to PresentThreats when they exit the room

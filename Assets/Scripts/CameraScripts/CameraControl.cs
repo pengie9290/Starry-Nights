@@ -52,6 +52,7 @@ public class CameraControl : MonoBehaviour
         foreach(var camera in Cameras)
         {
             camera.ThreatHasMoved(threatID);
+            Debug.Log(threatID);
         }
     }
 }
