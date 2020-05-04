@@ -16,7 +16,7 @@ public class Room
     public List<Threat> PresentThreats;
 
     //Get sorted list of room exits 
-    public List<int> SortedExits(bool isPowerBot = false)
+    public List<int> SortedExits(bool isPowerBot = false, int destination = -1)
     {
         List<int> Result = new List<int>();
         foreach (var exit in CreatureExits)
@@ -33,7 +33,16 @@ public class Room
                 Result.Add(exit);
             }
         }
-        Result.Sort((a, b) => b.CompareTo(a));
+        if (destination == -1) Result.Sort((a, b) => b.CompareTo(a));
+        else
+        {
+            Result.Sort((a, b) =>
+            {
+                int distA = ThreatNavManager.Instance.RoomInRange(a, destination, 3);
+                int distB = ThreatNavManager.Instance.RoomInRange(b, destination, 3);
+                return distA.CompareTo(distB);
+            });
+        }
         return Result;
     }
 
@@ -42,6 +51,10 @@ public class Room
     {
         Debug.Log(enteringThreat.ThreatID + "says Hello!");
         if (!PresentThreats.Contains(enteringThreat)) PresentThreats.Add(enteringThreat);
+        if (enteringThreat.IsPowerbot)
+        {
+            CameraControl.Instance.ShutDownPhone(ID);
+        }
     }
 
     //Removes a threat to PresentThreats when they exit the room

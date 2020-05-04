@@ -35,9 +35,9 @@ public class ThreatNavManager : MonoBehaviour
     }
 
     //Checks to see if two rooms being in range of one another is already recorded
-    public bool RoomInRange(int Start, int Destination, int Range = 2, List<int> Visited = null)
+    public int RoomInRange(int Start, int Destination, int Range = 2, List<int> Visited = null)
     {
-        if (Visited != null && Visited.Contains(Start)) return false;
+        if (Visited != null && Visited.Contains(Start)) return 0;
         string theKey = Start.ToString() + ":" + Destination.ToString() + ":" + Range.ToString();
         if (RoomRanges.ContainsKey(theKey))
         {
@@ -45,7 +45,7 @@ public class ThreatNavManager : MonoBehaviour
         }
         else
         {
-            bool Response = RoomInRangeCalculation(Start, Destination, Range, Visited);
+            int Response = RoomInRangeCalculation(Start, Destination, Range, Visited);
             RoomRanges.Add(theKey, Response);
 
             return Response;
@@ -53,20 +53,20 @@ public class ThreatNavManager : MonoBehaviour
     }
 
     //Determines whether two rooms are within specified proximity
-    public bool RoomInRangeCalculation(int Start, int Destination, int Range = 2, List<int> Visited = null)
+    public int RoomInRangeCalculation(int Start, int Destination, int Range = 2, List<int> Visited = null)
     {
         //Getting basic possibilities out of the way
-        if (Start == Destination) return true;
-        if (Start < 0 || Start >= Rooms.Count) return false;
-        if (Destination < 0 || Destination >= Rooms.Count) return false;
-        if (Range < 1) return false;
+        if (Start == Destination) return 1;
+        if (Start < 0 || Start >= Rooms.Count) return 0;
+        if (Destination < 0 || Destination >= Rooms.Count) return 0;
+        if (Range < 1) return 0;
 
         //Keeps track of the observed locations to avoid repeating the loop
         if (Visited == null) Visited = new List<int>();
-        if (Visited.Contains(Start)) return false;
+        if (Visited.Contains(Start)) return 0;
 
         //Determines if the destination is one step away from the start
-        if (Rooms[Start].SortedExits(true).Contains(Destination)) return true;
+        if (Rooms[Start].SortedExits(true).Contains(Destination)) return 2;
         Visited.Add(Start);
 
         //Determines if the destination is within range of the start
@@ -74,14 +74,15 @@ public class ThreatNavManager : MonoBehaviour
         {
             foreach (var exit in Rooms[Start].SortedExits(true))
             {
-                if (RoomInRange(exit, Destination, Range - 1, Visited)) return true;
+                int dist = RoomInRange(exit, Destination, Range - 1, Visited);
+                if (dist > 0) return dist + 1;
             }
         }
-        return false;
+        return 0;
     }
 
     //Stores the results of previous RoomInRange Calculations
-    private Dictionary<string, bool> RoomRanges = new Dictionary<string, bool>();
+    private Dictionary<string, int> RoomRanges = new Dictionary<string, int>();
 
 
     //Literally only exists to test whether "RoomInRange" works properly

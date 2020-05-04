@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,25 +84,52 @@ public class Threat : MonoBehaviour
     //Determines whether threat can move at all
     bool CanThreatMove()
     {
-        if (Random.Range(0, 20) > AILevel) return false;
+        if (UnityEngine.Random.Range(0, 20) > AILevel) return false;
         else return true;
     }
 
     //Determines best next step in threat's movement
-    void BestPathStep()
+    void BestPathStep(int destination = -1)
     {
         var exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot);
         if (exits.Count > 0)
         {
-            if (Location == 1)
+            if (destination == -1)
             {
-                int PickHall = Random.Range(0, 2);
-                Location = exits[PickHall];
+                if (Location == 1)
+                {
+                    int PickHall = UnityEngine.Random.Range(0, 2);
+                    Location = exits[PickHall];
+                }
+                else
+                {
+                    Location = exits[0];
+                }
             } else {
-                Location = exits[0];
+                Location = MoveTowards(destination, exits);
             }
         }
     }
+
+    int MoveTowards (int destination, List<int> exits)
+    {
+        if (destination == 1)
+        {
+            return exits[exits.Count - 1];
+        }
+        exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, destination);
+        foreach (int exit in exits)
+        {
+            if (exit > 0)
+            {
+                Debug.Log("This is the " + exit);
+                return exit;
+            } 
+        }
+        return Location;
+    }
+
+
 
     //Randomly selects next step in threat's movement
     void RandomPathStep()
@@ -110,23 +138,57 @@ public class Threat : MonoBehaviour
         if (exits.Count > 0)
         {
             if (exits.Count > 1 && exits.Contains(PreviousLocation)) exits.Remove(PreviousLocation);
-            int PickHall = Random.Range(0, exits.Count);
+            int PickHall = UnityEngine.Random.Range(0, exits.Count);
             Location = exits[PickHall];
         }
     }
 
-    void DetermineNextStep()
+    public virtual void DetermineNextStep()
     {
         PreviousLocation = Location;
+
+        int destination = -1;
+        if (IsPowerbot)
+        {
+            destination = AudiblePhoneRinging;
+        }
+
         float MovementEfficiency = AILevel/2;
-        float RandomSelect = Random.Range(0, 100);
-        if (RandomSelect > MovementEfficiency + 50) RandomPathStep();
-        else BestPathStep();
+        if (destination == -1)
+        {
+            float RandomSelect = UnityEngine.Random.Range(0, 100);
+            if (RandomSelect > MovementEfficiency + 50) RandomPathStep();
+            else BestPathStep();
+        } else {
+            BestPathStep(destination);
+        }
     }
 
-//Determines when threat can move
-bool CountDown()
+    //Is there a ringing phone in range of the threat?
+    public int AudiblePhoneRinging
     {
+        get
+        {
+            int CurrentPhone = CameraControl.Instance.RingingPhone;
+            if (CurrentPhone < 0) return CurrentPhone;
+            else
+            {
+                Debug.Log("Phone Is Ringing");
+
+                int inRange = ThreatNavManager.Instance.RoomInRange(Location, CurrentPhone, 2);
+                if (inRange > 0)
+                {
+                    Debug.Log("I hear Phone " + CurrentPhone);
+                    return CurrentPhone;
+                }
+                else return -1;
+            }
+        }
+    }
+
+    //Determines when threat can move
+    bool CountDown()
+        {
         RemainingTime -= Time.deltaTime;
         if (RemainingTime <= 0)
         {

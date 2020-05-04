@@ -6,7 +6,17 @@ public class CameraControl : MonoBehaviour
 {
     public static CameraControl Instance = null;
     public List<CameraView> Cameras = new List<CameraView>();
+    public List<CameraView> RingingPhones = new List<CameraView>();
     public int CurrentCam = 0;
+    public float MaxPhoneDelay = 20;
+    public int RingingPhone
+    {
+        get
+        {
+            if (RingingPhones.Count < 1) return -1;
+            else return RingingPhones[0].RoomID;
+        }
+    }
 
 
     void Start()
@@ -18,6 +28,10 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         DisplayCameras();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RingPhone();
+        }
     }
 
     void DisplayCameras()
@@ -52,7 +66,39 @@ public class CameraControl : MonoBehaviour
         foreach(var camera in Cameras)
         {
             camera.ThreatHasMoved(threatID);
-            Debug.Log(threatID);
+            //Debug.Log(threatID);
+        }
+    }
+
+    //Rings the phone in the selected room
+    public void RingPhone()
+    {
+        int PhoneID = Cameras[CurrentCam].PhoneID;
+        if (PhoneID >= 0)
+        {
+            foreach (var phone in RingingPhones)
+            {
+                phone.PhoneOff();
+            }
+            RingingPhones.Clear();
+            Cameras[CurrentCam].RingPhone();
+        }
+    }
+
+    public void StartRinging(CameraView room)
+    {
+        if (!RingingPhones.Contains(room))
+        {
+            RingingPhones.Add(room);
+        }
+    }
+
+    public void ShutDownPhone(int room)
+    {
+        if (RingingPhone == room && RingingPhones.Count > 0)
+        {
+            RingingPhones[0].PhoneOff();
+            RingingPhones.Clear();
         }
     }
 }

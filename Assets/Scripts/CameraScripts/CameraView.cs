@@ -12,7 +12,42 @@ public class CameraView : MonoBehaviour
 
     public GameObject StaticScreen;
     public GameObject Background;
+    public GameObject RingingPhone;
     public string CamName;
+
+    public float RemainingPhoneDelay = 0f;
+    public bool PhoneIsRinging = false;
+
+    public int PhoneID
+    {
+        get
+        {
+            int phone = -1;
+            if (RemainingPhoneDelay > 0)
+            {
+                return -1;
+            }
+            foreach (int i in Rooms)
+            {
+                Room room = ThreatNavManager.Instance.Rooms[i];
+                if (room.PhoneID >= 0)
+                {
+                    phone = room.PhoneID;
+                    return phone;
+                }
+            }
+            return phone;
+        }
+    }
+
+    public int RoomID
+    {
+        get
+        {
+            if (Rooms.Count < 1) return -1;
+            else return Rooms[0];
+        }
+    }
 
 
     public void ActivateCam()
@@ -76,6 +111,33 @@ public class CameraView : MonoBehaviour
         {
             var RoomNumber = ThreatNavManager.Instance.GetThreatLocation(threatID);
             if (Rooms.Contains(RoomNumber)) UpdateCam();
+        }
+    }
+
+    //Rings the phone in the selected room
+    public void RingPhone()
+    {
+        PhoneIsRinging = true;
+        CameraControl.Instance.StartRinging(this);
+        if (RingingPhone != null) RingingPhone.SetActive(true);
+    }
+
+    public void PhoneOff()
+    {
+        RemainingPhoneDelay = CameraControl.Instance.MaxPhoneDelay;
+        if (RingingPhone != null) RingingPhone.SetActive(false);
+
+    }
+
+    void Update()
+    {
+        if (RemainingPhoneDelay > 0)
+        {
+            RemainingPhoneDelay -= Time.deltaTime;
+            if (RemainingPhoneDelay <= 0)
+            {
+                RemainingPhoneDelay = 0;
+            }
         }
     }
 }
