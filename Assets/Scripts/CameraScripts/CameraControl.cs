@@ -90,6 +90,7 @@ public class CameraControl : MonoBehaviour
         if (!RingingPhones.Contains(room))
         {
             RingingPhones.Add(room);
+            PowerManager.Instance.PhoneCalled();
         }
     }
 

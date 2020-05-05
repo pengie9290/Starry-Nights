@@ -67,8 +67,10 @@
     <Compile Include="Assets\Scripts\CameraScripts\CameraView.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\Static.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\ThreatList.cs" />
+    <Compile Include="Assets\Scripts\DoorButton.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\OfficeManager.cs" />
+    <Compile Include="Assets\Scripts\PowerManager.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\Threat.cs" />
     <Compile Include="Assets\Scripts\ThreatNavManager.cs" />

@@ -19,6 +19,61 @@ public class OfficeManager : MonoBehaviour
         ReturnToLeft, Front, Right, Back, Left, ReturnToFront
     }
 
+    //Defines bars on doors
+    public GameObject LeftBars;
+    public GameObject RightBars;
+
+    //Tracks when one or both doors are barred
+    private bool leftDoorBarred = false;
+    private bool rightDoorBarred = false;
+    public bool LeftDoorBarred
+    {
+        get
+        {
+            return leftDoorBarred;
+        }
+        set
+        {
+            if (leftDoorBarred == value) return;
+            if (LeftBars != null)
+            {
+                LeftBars.SetActive(value);
+            }
+            leftDoorBarred = value;
+        }
+    }
+    public bool RightDoorBarred
+    {
+        get
+        {
+            return rightDoorBarred;
+        }
+        set
+        {
+            if (rightDoorBarred == value) return;
+            if (RightBars != null)
+            {
+                RightBars.SetActive(value);
+            }
+            rightDoorBarred = value;
+        }
+    }
+
+    //Opens/Closes doors
+    public void ToggleLeftDoor()
+    {
+        LeftDoorBarred = !LeftDoorBarred;
+    }
+    public void ToggleRightDoor()
+    {
+        RightDoorBarred = !RightDoorBarred;
+    }
+    public void ToggleCurrentDoor()
+    {
+        if (FacingDirection == Direction.Left) ToggleLeftDoor();
+        if (FacingDirection == Direction.Right) ToggleRightDoor();
+    }
+
     //Tracks where the player is looking
     private Direction _facingDirection = Direction.ReturnToFront;
     public Direction FacingDirection
@@ -93,7 +148,13 @@ public class OfficeManager : MonoBehaviour
 
     void Update()
     {
+        //Looks around office
         if (Input.GetKeyDown(KeyCode.RightArrow)) RotateDirection(1);
         if (Input.GetKeyDown(KeyCode.LeftArrow)) RotateDirection(-1);
+
+        //Opens/Closes doors
+        if (Input.GetKeyDown(KeyCode.A)) ToggleLeftDoor();
+        if (Input.GetKeyDown(KeyCode.D)) ToggleRightDoor();
+
     }
 }
