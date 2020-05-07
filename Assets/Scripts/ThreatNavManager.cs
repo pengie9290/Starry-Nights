@@ -10,6 +10,9 @@ public class ThreatNavManager : MonoBehaviour
     //Stores map of threat locations
     public List<Room> Rooms = new List<Room>();
 
+    //Stores location of office
+    public static int Office = 18;
+
     //Stores list of all threats, active or otherwise
     public List<Threat> Threats = new List<Threat>();
 

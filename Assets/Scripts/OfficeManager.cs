@@ -133,9 +133,6 @@ public class OfficeManager : MonoBehaviour
         FacingDirection = FacingDirection + changeDirection;
     }
 
-
-
-
     void Start()
     {
         //Sets OfficeManager as a singleton (part 2)
@@ -155,6 +152,12 @@ public class OfficeManager : MonoBehaviour
         //Opens/Closes doors
         if (Input.GetKeyDown(KeyCode.A)) ToggleLeftDoor();
         if (Input.GetKeyDown(KeyCode.D)) ToggleRightDoor();
+    }
 
+    //Opens bars on doors in blackout
+    public void PowerOff()
+    {
+        LeftDoorBarred = false;
+        RightDoorBarred = false;
     }
 }

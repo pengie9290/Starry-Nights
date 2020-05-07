@@ -162,6 +162,10 @@ public class Threat : MonoBehaviour
         } else {
             BestPathStep(destination);
         }
+        if (IsPowerbot && Location == ThreatNavManager.Office)
+        {
+            PowerManager.Instance.Blackout(false);
+        }
     }
 
     //Is there a ringing phone in range of the threat?
