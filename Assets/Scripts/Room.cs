@@ -16,7 +16,7 @@ public class Room
     public List<Threat> PresentThreats;
 
     //Get sorted list of room exits 
-    public List<int> SortedExits(bool isPowerBot = false, int destination = -1)
+    public List<int> SortedExits(bool isPowerBot = false, bool PassesBars = false, int destination = -1)
     {
         List<int> Result = new List<int>();
         foreach (var exit in CreatureExits)
@@ -33,6 +33,14 @@ public class Room
                 Result.Add(exit);
             }
         }
+
+        //Office cannot be entered if the relevant door is closed
+        if (Result.Contains(ThreatNavManager.Office) && !PassesBars)
+        {
+            if (OfficeManager.Instance.LeftDoorBarred == true && ID == 16) Result.Remove(ThreatNavManager.Office);
+            if (OfficeManager.Instance.RightDoorBarred == true && ID == 17) Result.Remove(ThreatNavManager.Office);
+        }
+
         if (destination == -1) Result.Sort((a, b) => b.CompareTo(a));
         else
         {

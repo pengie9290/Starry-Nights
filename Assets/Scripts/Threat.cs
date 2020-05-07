@@ -40,6 +40,8 @@ public class Threat : MonoBehaviour
 
     private int PreviousLocation = -1;
 
+    public bool PassesBars = false;
+
     //ID 0 = Powerbot
     //ID 1 = Crawler
     //ID 2 = Alpha
@@ -91,7 +93,7 @@ public class Threat : MonoBehaviour
     //Determines best next step in threat's movement
     void BestPathStep(int destination = -1)
     {
-        var exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot);
+        var exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars);
         if (exits.Count > 0)
         {
             if (destination == -1)
@@ -117,7 +119,7 @@ public class Threat : MonoBehaviour
         {
             return exits[exits.Count - 1];
         }
-        exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, destination);
+        exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
         foreach (int exit in exits)
         {
             if (exit > 0)
@@ -134,7 +136,7 @@ public class Threat : MonoBehaviour
     //Randomly selects next step in threat's movement
     void RandomPathStep()
     {
-        var exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot);
+        var exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars);
         if (exits.Count > 0)
         {
             if (exits.Count > 1 && exits.Contains(PreviousLocation)) exits.Remove(PreviousLocation);

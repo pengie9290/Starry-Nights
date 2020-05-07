@@ -7323,7 +7323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1717798382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7338,9 +7338,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spawnpoint: 1
   location: 1
-  AILevel: 5
+  AILevel: 20
   MoveTime: 5
   RemainingTime: 3
+  PassesBars: 0
   ThreatID: 1
 --- !u!4 &1717798383
 Transform:
@@ -9221,9 +9222,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spawnpoint: 1
   location: 0
-  AILevel: 0
+  AILevel: 20
   MoveTime: 3
   RemainingTime: 5
+  PassesBars: 1
   ThreatID: 0
 --- !u!1 &2099006886
 GameObject:
