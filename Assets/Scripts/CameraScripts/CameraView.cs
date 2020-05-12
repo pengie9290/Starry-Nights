@@ -53,6 +53,7 @@ public class CameraView : MonoBehaviour
     public void ActivateCam()
     {
         UpdateCam();
+        CameraControl.Instance.PlayCamSound();
     }
 
     public void DeactivateCam()
@@ -131,12 +132,15 @@ public class CameraView : MonoBehaviour
 
     void Update()
     {
-        if (RemainingPhoneDelay > 0)
+        if (GameManager.Instance.NightInProgress)
         {
-            RemainingPhoneDelay -= Time.deltaTime;
-            if (RemainingPhoneDelay <= 0)
+            if (RemainingPhoneDelay > 0)
             {
-                RemainingPhoneDelay = 0;
+                RemainingPhoneDelay -= Time.deltaTime;
+                if (RemainingPhoneDelay <= 0)
+                {
+                    RemainingPhoneDelay = 0;
+                }
             }
         }
     }

@@ -23,11 +23,13 @@ public class Threat : MonoBehaviour
                     room.ExitRoom(this);
                 }
                 location = value;
+                if (location == ThreatNavManager.Office) JumpscareManager.Instance.PlayJumpscare(ThreatID);
                 if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
                 {
                     var room = ThreatNavManager.Instance.Rooms[location];
                     room.EnterRoom(this);
                 }
+                if (IsPowerbot) CheckPowerbotLights();
             }
             CameraControl.Instance.UpdateCameras(ThreatID);
         }
@@ -70,15 +72,18 @@ public class Threat : MonoBehaviour
 
     void Update()
     {
-        if (CountDown())
+        if (GameManager.Instance.NightInProgress)
         {
-            if (CanThreatMove())
+            if (CountDown())
             {
-                if (Location > -1)
+                if (CanThreatMove())
                 {
-                    DetermineNextStep();
+                    if (Location > -1)
+                    {
+                        DetermineNextStep();
+                    }
+                    Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
                 }
-                Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
             }
         }
     }
@@ -203,5 +208,22 @@ public class Threat : MonoBehaviour
         } else {
             return false;
         }
+    }
+
+    //Turns Powerbot lights on/off
+    public void CheckPowerbotLights()
+    {
+        if (Location == ThreatNavManager.OutsideLeftDoor)
+        {
+            OfficeManager.Instance.LeftLightOn = true;
+            return;
+        }
+        if (Location == ThreatNavManager.OutsideRightDoor)
+        {
+            OfficeManager.Instance.RightLightOn = true;
+            return;
+        }
+        OfficeManager.Instance.LeftLightOn = false;
+        OfficeManager.Instance.RightLightOn = false;
     }
 }

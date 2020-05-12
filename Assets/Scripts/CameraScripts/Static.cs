@@ -16,11 +16,14 @@ public class Static : MonoBehaviour
 
     void Update()
     {
-        TimeRemaining -= Time.deltaTime;
-        if (TimeRemaining <= 0)
+        if (GameManager.Instance.NightInProgress)
         {
-            TimeRemaining = StaticTime;
-            gameObject.SetActive(false);
+            TimeRemaining -= Time.deltaTime;
+            if (TimeRemaining <= 0)
+            {
+                TimeRemaining = StaticTime;
+                gameObject.SetActive(false);
+            }
         }
     }
 }

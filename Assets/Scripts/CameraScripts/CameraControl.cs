@@ -27,10 +27,13 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        DisplayCameras();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GameManager.Instance.NightInProgress)
         {
-            RingPhone();
+            DisplayCameras();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RingPhone();
+            }
         }
     }
 
@@ -101,5 +104,11 @@ public class CameraControl : MonoBehaviour
             RingingPhones[0].PhoneOff();
             RingingPhones.Clear();
         }
+    }
+
+    public void PlayCamSound()
+    {
+        AudioSource Source = gameObject.GetComponent<AudioSource>();
+        if (Source != null) Source.Play();
     }
 }

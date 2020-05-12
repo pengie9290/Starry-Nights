@@ -19,6 +19,36 @@ public class OfficeManager : MonoBehaviour
         ReturnToLeft, Front, Right, Back, Left, ReturnToFront
     }
 
+    //Defines Powerbot Detection Lights
+    public GameObject LeftLight;
+    public GameObject RightLight;
+
+    //Tracks which Powerbot Detection Light (if any) is on
+    public bool LeftLightOn
+    {
+        get
+        {
+            if (LeftLight == null) return false;
+            return LeftLight.activeSelf;
+        }
+        set
+        {
+            if (LeftLight != null) LeftLight.SetActive(value);
+        }
+    }
+    public bool RightLightOn
+    {
+        get
+        {
+            if (RightLight == null) return false;
+            return RightLight.activeSelf;
+        }
+        set
+        {
+            if (RightLight != null) RightLight.SetActive(value);
+        }
+    }
+
     //Defines bars on doors
     public GameObject LeftBars;
     public GameObject RightBars;
@@ -38,6 +68,7 @@ public class OfficeManager : MonoBehaviour
             if (LeftBars != null)
             {
                 LeftBars.SetActive(value);
+                PlayDoorSound();
             }
             leftDoorBarred = value;
         }
@@ -54,6 +85,7 @@ public class OfficeManager : MonoBehaviour
             if (RightBars != null)
             {
                 RightBars.SetActive(value);
+                PlayDoorSound();
             }
             rightDoorBarred = value;
         }
@@ -63,10 +95,12 @@ public class OfficeManager : MonoBehaviour
     public void ToggleLeftDoor()
     {
         LeftDoorBarred = !LeftDoorBarred;
+        //PlayDoorSound();
     }
     public void ToggleRightDoor()
     {
         RightDoorBarred = !RightDoorBarred;
+        //PlayDoorSound();
     }
     public void ToggleCurrentDoor()
     {
@@ -145,13 +179,16 @@ public class OfficeManager : MonoBehaviour
 
     void Update()
     {
-        //Looks around office
-        if (Input.GetKeyDown(KeyCode.RightArrow)) RotateDirection(1);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) RotateDirection(-1);
+        if (GameManager.Instance.NightInProgress)
+        {
+            //Looks around office
+            if (Input.GetKeyDown(KeyCode.RightArrow)) RotateDirection(1);
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) RotateDirection(-1);
 
-        //Opens/Closes doors
-        if (Input.GetKeyDown(KeyCode.A)) ToggleLeftDoor();
-        if (Input.GetKeyDown(KeyCode.D)) ToggleRightDoor();
+            //Opens/Closes doors
+            if (Input.GetKeyDown(KeyCode.A)) ToggleLeftDoor();
+            if (Input.GetKeyDown(KeyCode.D)) ToggleRightDoor();
+        }
     }
 
     //Opens bars on doors in blackout
@@ -159,5 +196,11 @@ public class OfficeManager : MonoBehaviour
     {
         LeftDoorBarred = false;
         RightDoorBarred = false;
+    }
+
+    public void PlayDoorSound()
+    {
+        AudioSource Source = gameObject.GetComponent<AudioSource>();
+        if (Source != null) Source.Play();
     }
 }

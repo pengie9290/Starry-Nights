@@ -13,6 +13,14 @@ public class ThreatNavManager : MonoBehaviour
     //Stores location of office
     public static int Office = 18;
 
+    //Stores locations outside office
+    public static int OutsideLeftDoor = 16;
+    public static int OutsideRightDoor = 17;
+
+    //Stores location of hall rooms
+    public static List<int> LeftHall = new List<int>(new int[] { 2, 5, 9, 13, 16 });
+    public static List<int> RightHall = new List<int>(new int[] { 3, 6, 10, 14, 17 });
+
     //Stores list of all threats, active or otherwise
     public List<Threat> Threats = new List<Threat>();
 

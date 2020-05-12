@@ -65,34 +65,38 @@ public class PowerManager : MonoBehaviour
 
     void Update()
     {
-        //Checks remaining power
-        if (RemainingPower > 0)
+        if (GameManager.Instance.NightInProgress)
         {
-            RemainingPower -= IdleDrain * Time.deltaTime;
-            CheckDoorStates();
-            if (RemainingPower <= 0)
+            //Checks remaining power
+            if (RemainingPower > 0)
             {
-                Blackout(true);
+                RemainingPower -= IdleDrain * Time.deltaTime;
+                CheckDoorStates();
+                if (RemainingPower <= 0)
+                {
+                    Blackout(true);
+                }
             }
-        }
 
-        //Turns power on if blackout was caused on Night 1 by Powerbot
-        if(RemainingPowerOnTime > 0)
-        {
-            RemainingPowerOnTime -= Time.deltaTime;
-            if (RemainingPowerOnTime <= 0)
+
+            //Turns power on if blackout was caused on Night 1 by Powerbot
+            if (RemainingPowerOnTime > 0)
             {
-                BlackoutSprite1.SetActive(false);
-                BlackoutSprite2.SetActive(false);
-                PowerbotShutdown = false;
-                BlackedOut = false;
+                RemainingPowerOnTime -= Time.deltaTime;
+                if (RemainingPowerOnTime <= 0)
+                {
+                    BlackoutSprite1.SetActive(false);
+                    BlackoutSprite2.SetActive(false);
+                    PowerbotShutdown = false;
+                    BlackedOut = false;
+                }
             }
         }
     }
 
     void FixedUpdate()
     {
-        UpdatePowerDisplay();
+        if (GameManager.Instance.NightInProgress) UpdatePowerDisplay();
     }
 
     //Subtracts power when doors are closed

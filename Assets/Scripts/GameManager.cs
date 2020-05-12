@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         //Makes GameManager a singleton (part 2)
         if (GameManager.Instance == null) GameManager.Instance = this;
         else Destroy(gameObject);
+
+        NightInProgress = true;
     }
 
     void Update()
@@ -55,8 +57,13 @@ public class GameManager : MonoBehaviour
         NightInProgress = true;
     }
 
-    void NightEnded()
+    public void NightEnded()
     {
         NightInProgress = false;
+    }
+
+    public void PlayerDeath()
+    {
+        NightEnded();
     }
 }

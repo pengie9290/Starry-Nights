@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\CameraScripts\ThreatList.cs" />
     <Compile Include="Assets\Scripts\DoorButton.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\JumpscareManager.cs" />
     <Compile Include="Assets\Scripts\OfficeManager.cs" />
     <Compile Include="Assets\Scripts\PowerManager.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
