@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AudioRepel.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraView.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\Static.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Scripts\OfficeManager.cs" />
     <Compile Include="Assets\Scripts\PowerManager.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
+    <Compile Include="Assets\Scripts\Threat Children\Alpha.cs" />
     <Compile Include="Assets\Scripts\Threat.cs" />
     <Compile Include="Assets\Scripts\ThreatNavManager.cs" />
     <Reference Include="Unity.Timeline.Editor">

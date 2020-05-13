@@ -74,22 +74,12 @@ public class Threat : MonoBehaviour
     {
         if (GameManager.Instance.NightInProgress)
         {
-            if (CountDown())
-            {
-                if (CanThreatMove())
-                {
-                    if (Location > -1)
-                    {
-                        DetermineNextStep();
-                    }
-                    Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
-                }
-            }
+            UpdateThreat();
         }
     }
 
     //Determines whether threat can move at all
-    bool CanThreatMove()
+    public bool CanThreatMove()
     {
         if (UnityEngine.Random.Range(0, 20) > AILevel) return false;
         else return true;
@@ -118,22 +108,34 @@ public class Threat : MonoBehaviour
         }
     }
 
-    int MoveTowards (int destination, List<int> exits)
+    public int MoveTowards(int destination, List<int> exits = null, bool OnlyWhenPossible = false)
     {
+        if (exits == null) exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
+
+        //Moves threat towards spawnpoint
         if (destination == 1)
         {
-            return exits[exits.Count - 1];
+            int lowest = exits.Count - 1;
+            if (OnlyWhenPossible && lowest > Location) lowest = Location;
+            return lowest;
         }
+
         exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
+        var theExit = -1;
         foreach (int exit in exits)
         {
             if (exit > 0)
             {
                 Debug.Log("This is the " + exit);
-                return exit;
+                theExit = exit;
+                break;
             } 
         }
-        return Location;
+        if (OnlyWhenPossible && destination == ThreatNavManager.Office && Location > theExit)
+        {
+            theExit = Location;
+        }
+            return theExit;
     }
 
 
@@ -198,7 +200,7 @@ public class Threat : MonoBehaviour
     }
 
     //Determines when threat can move
-    bool CountDown()
+    public bool CountDown()
         {
         RemainingTime -= Time.deltaTime;
         if (RemainingTime <= 0)
@@ -225,5 +227,28 @@ public class Threat : MonoBehaviour
         }
         OfficeManager.Instance.LeftLightOn = false;
         OfficeManager.Instance.RightLightOn = false;
+    }
+
+    //Tells threat what to do when hearing audio repel
+    //Overridden by child scripts for relevant threats
+    public virtual void AudioSignal()
+    {
+        Debug.Log(ThreatID + ", " + Location + ", Audio Recived");
+    }
+
+    //Gives child objects an alternative to void Update() that doesn't override anything
+    public virtual void UpdateThreat()
+    {
+        if (CountDown())
+        {
+            if (CanThreatMove())
+            {
+                if (Location > -1)
+                {
+                    DetermineNextStep();
+                }
+                Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+            }
+        }
     }
 }

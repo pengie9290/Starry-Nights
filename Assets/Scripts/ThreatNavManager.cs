@@ -119,4 +119,15 @@ public class ThreatNavManager : MonoBehaviour
         }
         return -1;
     }
+
+    //Sends a signal to threats when an audio repel is used
+    public void SoundAlarm(bool leftAudioRepel)
+    {
+        //Determines which room to signal
+        int SignaledRoom = leftAudioRepel ? OutsideLeftDoor : OutsideRightDoor;
+        foreach (var threat in Threats)
+        {
+            if (threat.Location == SignaledRoom) threat.AudioSignal();
+        }
+    }
 }
