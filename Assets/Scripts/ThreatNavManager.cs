@@ -50,6 +50,8 @@ public class ThreatNavManager : MonoBehaviour
     {
         if (Visited != null && Visited.Contains(Start)) return 0;
         string theKey = Start.ToString() + ":" + Destination.ToString() + ":" + Range.ToString();
+        if (OfficeManager.Instance.LeftDoorBarred) theKey += "L";
+        if (OfficeManager.Instance.RightDoorBarred) theKey += "R";
         if (RoomRanges.ContainsKey(theKey))
         {
             return RoomRanges[theKey];
@@ -59,6 +61,7 @@ public class ThreatNavManager : MonoBehaviour
             int Response = RoomInRangeCalculation(Start, Destination, Range, Visited);
             RoomRanges.Add(theKey, Response);
 
+            Debug.Log(Start + " -> " + Destination + " = " + Response);
             return Response;
         }
     }

@@ -14,7 +14,7 @@ public class Threat : MonoBehaviour
         }
         set
         {
-            if (value == location) return;
+            if (value == location || !CanEnterRoom(value)) return;
             else
             {
                 if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
@@ -31,6 +31,7 @@ public class Threat : MonoBehaviour
                 }
                 if (IsPowerbot) CheckPowerbotLights();
             }
+
             CameraControl.Instance.UpdateCameras(ThreatID);
         }
     }
@@ -58,6 +59,10 @@ public class Threat : MonoBehaviour
             return ThreatID == 0;
         }
     }
+    
+    public bool StartsUpset = false;
+    public bool IsUpset = false;
+
 
 
     void Start()
@@ -68,6 +73,7 @@ public class Threat : MonoBehaviour
         var room = ThreatNavManager.Instance.Rooms[location];
         room.EnterRoom(this);
         Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
+        IsUpset = StartsUpset;
     }
 
     void Update()
@@ -75,6 +81,7 @@ public class Threat : MonoBehaviour
         if (GameManager.Instance.NightInProgress)
         {
             UpdateThreat();
+            if (Input.GetKeyDown(KeyCode.P)) IsUpset = true;
         }
     }
 
@@ -110,13 +117,16 @@ public class Threat : MonoBehaviour
 
     public int MoveTowards(int destination, List<int> exits = null, bool OnlyWhenPossible = false)
     {
+        Debug.Log("MoveTowards");
         if (exits == null) exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
 
         //Moves threat towards spawnpoint
-        if (destination == 1)
+        if (destination == 1000)
         {
             int lowest = exits.Count - 1;
             if (OnlyWhenPossible && lowest > Location) lowest = Location;
+
+            if (lowest < 1) lowest = Location;
             return lowest;
         }
 
@@ -129,13 +139,20 @@ public class Threat : MonoBehaviour
                 Debug.Log("This is the " + exit);
                 theExit = exit;
                 break;
+
+
             } 
         }
         if (OnlyWhenPossible && destination == ThreatNavManager.Office && Location > theExit)
         {
             theExit = Location;
         }
-            return theExit;
+        if (theExit < 0)
+        {
+            theExit = Location;
+        }
+        Debug.Log("Choosing " + theExit);
+        return theExit;
     }
 
 
@@ -250,5 +267,10 @@ public class Threat : MonoBehaviour
                 Debug.Log(ThreatNavManager.Instance.Rooms[Location].name);
             }
         }
+    }
+
+    public virtual bool CanEnterRoom(int destination)
+    {
+        return true;
     }
 }

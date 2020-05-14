@@ -111,4 +111,12 @@ public class CameraControl : MonoBehaviour
         AudioSource Source = gameObject.GetComponent<AudioSource>();
         if (Source != null) Source.Play();
     }
+
+    public void DeactivateCameras()
+    {
+        foreach (var camera in Cameras)
+        {
+            camera.gameObject.SetActive(false);
+        }
+    }
 }

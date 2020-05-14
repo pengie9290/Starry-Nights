@@ -31,6 +31,7 @@ public class JumpscareManager : MonoBehaviour
         {
             Jumpscares[threatID].SetActive(true);
             PlayScareSound();
+            CameraControl.Instance.DeactivateCameras();
             GameManager.Instance.PlayerDeath();
         }
     }

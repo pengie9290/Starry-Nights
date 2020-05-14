@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\PowerManager.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\Threat Children\Alpha.cs" />
+    <Compile Include="Assets\Scripts\Threat Children\Beta.cs" />
     <Compile Include="Assets\Scripts\Threat.cs" />
     <Compile Include="Assets\Scripts\ThreatNavManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
