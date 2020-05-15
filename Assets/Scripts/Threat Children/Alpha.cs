@@ -21,7 +21,6 @@ public class Alpha : Threat
         {
             if (CanThreatMove())
             {
-
                 Debug.Log(CanThreatMove());
                 if (Location > -1)
                 {
@@ -41,6 +40,7 @@ public class Alpha : Threat
 
     public override void DetermineNextStep()
     {
+        Debug.Log("DetermineNextStep OVERRIDDEN");
         if (!IsUpset) base.DetermineNextStep();
         else
         {
@@ -53,12 +53,11 @@ public class Alpha : Threat
         switch (destination)
         {
             case 16:
-                //Keeps Alpha Threat outside the office when Beta Threat is also outside left door
-                return ThreatNavManager.Instance.GetThreatLocation(3) != 16;
+                //Keeps Alpha Threat outside the office when Beta Threat is also outside left door or Serpent Threat is in left hall
+                return ThreatNavManager.Instance.GetThreatLocation(3) != 16 && ThreatNavManager.Instance.IsThreatInHall(4) != 16;
             case 17:
-                //Keeps Alpha Threat outside the office when Beta Threat is also outside right door
-                IsUpset = true;
-                return ThreatNavManager.Instance.GetThreatLocation(3) != 17;
+                //Keeps Alpha Threat outside the office when Beta Threat is also outside right door or Serpent Threat is in right hall
+                return ThreatNavManager.Instance.GetThreatLocation(3) != 17 && ThreatNavManager.Instance.IsThreatInHall(4) != 17;
             default:
                 return true;
         }

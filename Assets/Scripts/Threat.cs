@@ -118,18 +118,6 @@ public class Threat : MonoBehaviour
     public int MoveTowards(int destination, List<int> exits = null, bool OnlyWhenPossible = false)
     {
         Debug.Log("MoveTowards");
-        if (exits == null) exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
-
-        //Moves threat towards spawnpoint
-        if (destination == 1000)
-        {
-            int lowest = exits.Count - 1;
-            if (OnlyWhenPossible && lowest > Location) lowest = Location;
-
-            if (lowest < 1) lowest = Location;
-            return lowest;
-        }
-
         exits = ThreatNavManager.Instance.Rooms[Location].SortedExits(IsPowerbot, PassesBars, destination);
         var theExit = -1;
         foreach (int exit in exits)
@@ -139,13 +127,12 @@ public class Threat : MonoBehaviour
                 Debug.Log("This is the " + exit);
                 theExit = exit;
                 break;
-
-
             } 
         }
         if (OnlyWhenPossible && destination == ThreatNavManager.Office && Location > theExit)
         {
             theExit = Location;
+            Debug.Log("Huh?!");
         }
         if (theExit < 0)
         {
@@ -171,6 +158,7 @@ public class Threat : MonoBehaviour
 
     public virtual void DetermineNextStep()
     {
+        Debug.Log("DetermineNextStep BASE");
         PreviousLocation = Location;
 
         int destination = -1;

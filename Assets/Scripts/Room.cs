@@ -46,8 +46,8 @@ public class Room
         {
             Result.Sort((a, b) =>
             {
-                int distA = ThreatNavManager.Instance.RoomInRange(a, destination, 30);
-                int distB = ThreatNavManager.Instance.RoomInRange(b, destination, 30);
+                int distA = ThreatNavManager.Instance.RoomInRange(a, destination, 9);
+                int distB = ThreatNavManager.Instance.RoomInRange(b, destination, 9);
                 return distA.CompareTo(distB);
             });
         }

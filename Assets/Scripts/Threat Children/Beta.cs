@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Beta : Alpha
 {
-    void Awake()
+    protected virtual void Awake()
     {
         UpsetDestination = ThreatNavManager.Office;
     }
@@ -23,7 +23,7 @@ public class Beta : Alpha
         {
             if (Location == ThreatNavManager.OutsideLeftDoor || Location == ThreatNavManager.OutsideRightDoor)
             {
-                RemainingTime = MaxAttackTime * Time.deltaTime;
+                //RemainingTime = MaxAttackTime * Time.deltaTime;
             }
         }
         if (CountDown())
@@ -42,6 +42,7 @@ public class Beta : Alpha
 
     public override bool CanEnterRoom(int destination)
     {
+        Debug.Log("CanBetaEnter");
         switch (destination)
         {
             case 1:

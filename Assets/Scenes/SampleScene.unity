@@ -763,7 +763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &120632083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6133,7 +6133,7 @@ MonoBehaviour:
     PhoneID: -1
     name: Security Office
     CreatureExits: 
-    PowerbotExits: 01000000
+    PowerbotExits: 
     PresentThreats: []
   - ID: 19
     camID: -1
@@ -9497,7 +9497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1310442190
 Transform:
   m_ObjectHideFlags: 0
@@ -11077,7 +11077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1542625113
 Transform:
   m_ObjectHideFlags: 0
@@ -11101,7 +11101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1542625112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934a064e8602a4c25b8a4ae0b6fa5e02, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dc83c7bf5c7541348fae2d563786342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Spawnpoint: 1
@@ -11109,10 +11109,16 @@ MonoBehaviour:
   AILevel: 20
   MoveTime: 1
   RemainingTime: 1
-  PassesBars: 0
+  PassesBars: 1
   ThreatID: 4
-  StartsUpset: 0
+  StartsUpset: 1
   IsUpset: 0
+  UpsetDestination: 1
+  MaxAttackTime: 10
+  CanLeaveSpawn: 0
+  BaseMaxChargeTime: 180
+  CurrentMaxChargeTime: 180
+  RemainingChargeTime: 180
 --- !u!1 &1546834650
 GameObject:
   m_ObjectHideFlags: 0

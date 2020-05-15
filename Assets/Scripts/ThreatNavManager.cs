@@ -61,7 +61,7 @@ public class ThreatNavManager : MonoBehaviour
             int Response = RoomInRangeCalculation(Start, Destination, Range, Visited);
             RoomRanges.Add(theKey, Response);
 
-            Debug.Log(Start + " -> " + Destination + " = " + Response);
+            Debug.Log(Start + " -> " + Destination + " = " + Response + ", " + "Range = " + Range);
             return Response;
         }
     }
@@ -119,6 +119,21 @@ public class ThreatNavManager : MonoBehaviour
         foreach (var threat in Threats)
         {
             if (threat.ThreatID == threatID) return threat.location;
+        }
+        return -1;
+    }
+
+    //Checks to see if threat is in a hallway
+    public int IsThreatInHall(int CheckID)
+    {
+        int LocationToFind = GetThreatLocation(CheckID); 
+        foreach (var room in LeftHall)
+        {
+            if (room == LocationToFind) return OutsideLeftDoor; 
+        }
+        foreach (var room in RightHall)
+        {
+            if (room == LocationToFind) return OutsideRightDoor;
         }
         return -1;
     }

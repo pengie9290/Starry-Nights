@@ -13,17 +13,4 @@ public class AudioRepel : MonoBehaviour
         if (Source != null) Source.Play();
         ThreatNavManager.Instance.SoundAlarm(LeftAudioRepel);
     }
-
-
-
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
