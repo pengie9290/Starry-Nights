@@ -1,21 +1,22 @@
 ﻿<Properties StartupConfiguration="{7A7326D1-2877-D073-08D3-C03498605981}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Threat Children/Beta.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PowerManager.cs">
     <Files>
       <File FileName="Assets/Scripts/GameManager.cs" Line="62" Column="1" />
       <File FileName="Assets/Scripts/OfficeManager.cs" />
-      <File FileName="Assets/Scripts/PowerManager.cs" />
+      <File FileName="Assets/Scripts/PowerManager.cs" Line="57" Column="6" />
       <File FileName="Assets/Scripts/JumpscareManager.cs" />
       <File FileName="Assets/Scripts/AudioRepel.cs" Line="14" Column="62" />
       <File FileName="Assets/Scripts/Room.cs" />
-      <File FileName="Assets/Scripts/Threat.cs" Line="13" Column="29" />
+      <File FileName="Assets/Scripts/Threat.cs" />
       <File FileName="Assets/Scripts/ThreatNavManager.cs" />
-      <File FileName="Assets/Scripts/CameraScripts/CameraControl.cs" />
-      <File FileName="Assets/Scripts/CameraScripts/CameraView.cs" />
+      <File FileName="Assets/Scripts/CameraScripts/CameraControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CameraScripts/CameraView.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CameraScripts/Static.cs" />
       <File FileName="Assets/Scripts/CameraScripts/ThreatList.cs" />
       <File FileName="Assets/Scripts/DoorButton.cs" />
-      <File FileName="Assets/Scripts/Threat Children/Alpha.cs" Line="43" Column="13" />
+      <File FileName="Assets/Scripts/Threat Children/Alpha.cs" />
       <File FileName="Assets/Scripts/Threat Children/Beta.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/MapButton.cs" Line="7" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,9 +25,8 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="CameraScripts" expanded="True" />
-                <Node name="Threat Children" expanded="True">
-                  <Node name="Beta.cs" selected="True" />
-                </Node>
+                <Node name="Threat Children" expanded="True" />
+                <Node name="PowerManager.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -36,7 +36,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="30387257-d348-4526-931f-e0b8626c1049" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e72ba8ae-6a13-4833-9865-79a3d758522c" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

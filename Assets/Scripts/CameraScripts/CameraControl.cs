@@ -8,6 +8,7 @@ public class CameraControl : MonoBehaviour
     public List<CameraView> Cameras = new List<CameraView>();
     public List<CameraView> RingingPhones = new List<CameraView>();
     public int CurrentCam = 0;
+    public List<GameObject> MapViews = new List<GameObject>();
     public float MaxPhoneDelay = 20;
     public int RingingPhone
     {
@@ -52,14 +53,17 @@ public class CameraControl : MonoBehaviour
     }
 
     //Shows the feed of the specific selected camera
-    void ShowCam(int cam)
+    public void ShowCam(int cam)
     {
         if (cam < Cameras.Count && cam >= 0)
         {
             Cameras[CurrentCam].DeactivateCam();
+            if (CurrentCam < MapViews.Count && MapViews[CurrentCam] != null) MapViews[CurrentCam].SetActive(false);
             CurrentCam = cam;
             Cameras[cam].gameObject.SetActive(true);
             Cameras[cam].ActivateCam();
+            if (CurrentCam < MapViews.Count && MapViews[CurrentCam] != null) MapViews[CurrentCam].SetActive(true);
+
         }
     }
 
@@ -119,4 +123,8 @@ public class CameraControl : MonoBehaviour
             camera.gameObject.SetActive(false);
         }
     }
+
+
+    //Office Map Stuff
+
 }
