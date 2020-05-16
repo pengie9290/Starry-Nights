@@ -8,6 +8,7 @@ public class AudioRepel : MonoBehaviour
 
     public void OnMouseDown()
     {
+        PowerManager.Instance.AlarmRings();
         Debug.Log("Button");
         AudioSource Source = gameObject.GetComponent<AudioSource>();
         if (Source != null) Source.Play();

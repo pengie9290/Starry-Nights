@@ -123,8 +123,4 @@ public class CameraControl : MonoBehaviour
             camera.gameObject.SetActive(false);
         }
     }
-
-
-    //Office Map Stuff
-
 }

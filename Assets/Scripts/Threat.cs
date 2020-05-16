@@ -14,23 +14,29 @@ public class Threat : MonoBehaviour
         }
         set
         {
-            if (value == location || !CanEnterRoom(value)) return;
-            else
+            var canProgress = CanEnterRoom(value);
+            if (!canProgress)
             {
-                if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
-                {
-                    var room = ThreatNavManager.Instance.Rooms[location];
-                    room.ExitRoom(this);
-                }
-                location = value;
-                if (location == ThreatNavManager.Office) JumpscareManager.Instance.PlayJumpscare(ThreatID);
-                if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
-                {
-                    var room = ThreatNavManager.Instance.Rooms[location];
-                    room.EnterRoom(this);
-                }
-                if (IsPowerbot) CheckPowerbotLights();
+                Debug.Log("    You may not pass into "+value);
+                return;
             }
+            else if (value == location || !CanEnterRoom(value)) return;
+            else
+                {
+                    if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
+                    {
+                        var room = ThreatNavManager.Instance.Rooms[location];
+                        room.ExitRoom(this);
+                    }
+                    location = value;
+                    if (location == ThreatNavManager.Office) JumpscareManager.Instance.PlayJumpscare(ThreatID);
+                    if (location >= 0 && location < ThreatNavManager.Instance.Rooms.Count)
+                    {
+                        var room = ThreatNavManager.Instance.Rooms[location];
+                        room.EnterRoom(this);
+                    }
+                    if (IsPowerbot) CheckPowerbotLights();
+                }
 
             CameraControl.Instance.UpdateCameras(ThreatID);
         }
@@ -67,6 +73,13 @@ public class Threat : MonoBehaviour
 
     void Start()
     {
+        //Disables threat on AI level 0 while leaving it possible to be activated during the night
+        if (AILevel == 0)
+        {
+            AILevel += 1;
+            gameObject.SetActive(false);
+        }
+
         ThreatNavManager.Instance.RegisterThreat(this);
         Location = Spawnpoint;
         RemainingTime = MoveTime;
@@ -122,17 +135,14 @@ public class Threat : MonoBehaviour
         var theExit = -1;
         foreach (int exit in exits)
         {
-            if (exit > 0)
-            {
-                Debug.Log("This is the " + exit);
-                theExit = exit;
-                break;
-            } 
+            if (exit <= 0) continue;
+            Debug.Log(this.name +" is in "+Location+", and chose exit " + exit);
+            theExit = exit;
+            break;
         }
         if (OnlyWhenPossible && destination == ThreatNavManager.Office && Location > theExit)
         {
             theExit = Location;
-            Debug.Log("Huh?!");
         }
         if (theExit < 0)
         {
@@ -194,7 +204,7 @@ public class Threat : MonoBehaviour
                 Debug.Log("Phone Is Ringing");
 
                 int inRange = ThreatNavManager.Instance.RoomInRange(Location, CurrentPhone, 2);
-                if (inRange > 0)
+                if (inRange > 0 && inRange < 3)
                 {
                     Debug.Log("I hear Phone " + CurrentPhone);
                     return CurrentPhone;

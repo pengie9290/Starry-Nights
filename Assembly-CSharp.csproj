@@ -73,6 +73,8 @@
     <Compile Include="Assets\Scripts\JumpscareManager.cs" />
     <Compile Include="Assets\Scripts\MapButton.cs" />
     <Compile Include="Assets\Scripts\OfficeManager.cs" />
+    <Compile Include="Assets\Scripts\PhoneButton.cs" />
+    <Compile Include="Assets\Scripts\PhoneGuy.cs" />
     <Compile Include="Assets\Scripts\PowerManager.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\Threat Children\Alpha.cs" />

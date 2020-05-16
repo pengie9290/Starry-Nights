@@ -13,6 +13,8 @@ public class OfficeManager : MonoBehaviour
     public GameObject BackView;
     public GameObject LeftView;
 
+    public GameObject PowerDisplay;
+
     //Defines directions
     public enum Direction
     {
@@ -134,24 +136,28 @@ public class OfficeManager : MonoBehaviour
         {
             case Direction.Front:
             default:
+                PowerDisplay.SetActive(true);
                 FrontView.SetActive(true);
                 LeftView.SetActive(false);
                 BackView.SetActive(false);
                 RightView.SetActive(false);
                 break;
             case Direction.Left:
+                PowerDisplay.SetActive(false);
                 FrontView.SetActive(false);
                 LeftView.SetActive(true);
                 BackView.SetActive(false);
                 RightView.SetActive(false);
                 break;
             case Direction.Back:
+                PowerDisplay.SetActive(false);
                 FrontView.SetActive(false);
                 LeftView.SetActive(false);
                 BackView.SetActive(true);
                 RightView.SetActive(false);
                 break;
             case Direction.Right:
+                PowerDisplay.SetActive(false);
                 FrontView.SetActive(false);
                 LeftView.SetActive(false);
                 BackView.SetActive(false);
@@ -202,5 +208,11 @@ public class OfficeManager : MonoBehaviour
     {
         AudioSource Source = gameObject.GetComponent<AudioSource>();
         if (Source != null) Source.Play();
+    }
+
+    public void HideOverlay()
+    {
+        PowerDisplay.SetActive(false);
+        PowerManager.Instance.HideOverlays();
     }
 }

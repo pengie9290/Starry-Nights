@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ThreatNavManager : MonoBehaviour
 {
@@ -45,54 +48,89 @@ public class ThreatNavManager : MonoBehaviour
 
     }
 
-    //Checks to see if two rooms being in range of one another is already recorded
-    public int RoomInRange(int Start, int Destination, int Range = 2, List<int> Visited = null)
+    string MakeKey(int Start, int Destination, int Range, bool isPowerbot, bool ignoreBars)
     {
-        if (Visited != null && Visited.Contains(Start)) return 0;
         string theKey = Start.ToString() + ":" + Destination.ToString() + ":" + Range.ToString();
-        if (OfficeManager.Instance.LeftDoorBarred) theKey += "L";
-        if (OfficeManager.Instance.RightDoorBarred) theKey += "R";
+        if (isPowerbot) theKey += ":PB:";
+        if (ignoreBars) theKey += ":IB";
+        if (OfficeManager.Instance.LeftDoorBarred) theKey += ":L";
+        if (OfficeManager.Instance.RightDoorBarred) theKey += ":R";
+        return theKey;
+    }
+
+    //Checks to see if two rooms being in range of one another is already recorded
+    public int RoomInRange(int Start, int Destination, int Range = 2, List<int> Visited = null, bool isPowerbot=false, bool ignoreBars=false)
+    {
+        if (Visited != null && Visited.Contains(Start)) return 20000;
+        var theKey = MakeKey(Start, Destination, Range, isPowerbot, ignoreBars);
         if (RoomRanges.ContainsKey(theKey))
         {
+            Debug.Log(".." + theKey+" === " + RoomRanges[theKey]);
             return RoomRanges[theKey];
         }
         else
         {
-            int Response = RoomInRangeCalculation(Start, Destination, Range, Visited);
-            RoomRanges.Add(theKey, Response);
-
-            Debug.Log(Start + " -> " + Destination + " = " + Response + ", " + "Range = " + Range);
+            int Response = RoomInRangeCalculation(Start, Destination, Range, Visited, isPowerbot, ignoreBars);
+            if (Response > 0 && Response < 1000) //make sure we don't save a failure from retracking our steps
+            {
+                if (RoomRanges.ContainsKey(theKey))
+                {
+                    // make sure we don't have a lower path already
+                    // this may have been found earlier during this recursive search
+                    var oldKey = RoomRanges[theKey];
+                    if (oldKey < Response)
+                        Response = oldKey;
+                }
+                RoomRanges[theKey] = Response;
+                var message = theKey + " = " + Response + ", " + "Range = " + Range + "   [";
+                
+                if (Visited != null)
+                    foreach (var previous in Visited)
+                    {
+                        message += previous + ", ";
+                    }
+                
+                message += "]";
+                Debug.Log(message);
+            }
             return Response;
         }
     }
 
     //Determines whether two rooms are within specified proximity
-    public int RoomInRangeCalculation(int Start, int Destination, int Range = 2, List<int> Visited = null)
+    public int RoomInRangeCalculation(int Start, int Destination, int Range = 2, List<int> Visited = null, bool isPowerbot=false, bool ignoreBars=false)
     {
         //Getting basic possibilities out of the way
         if (Start == Destination) return 1;
-        if (Start < 0 || Start >= Rooms.Count) return 0;
-        if (Destination < 0 || Destination >= Rooms.Count) return 0;
-        if (Range < 1) return 0;
+        if (Start < 0 || Start >= Rooms.Count) return 10000;
+        if (Destination < 0 || Destination >= Rooms.Count) return 10000;
+        if (Range < 1) return 10000;
 
         //Keeps track of the observed locations to avoid repeating the loop
         if (Visited == null) Visited = new List<int>();
-        if (Visited.Contains(Start)) return 0;
+        if (Visited.Contains(Start)) return 10000;
 
         //Determines if the destination is one step away from the start
-        if (Rooms[Start].SortedExits(true).Contains(Destination)) return 2;
+        if (Rooms[Start].SortedExits(isPowerbot).Contains(Destination)) return 2;
         Visited.Add(Start);
 
+        var closest = 10000;
         //Determines if the destination is within range of the start
         if (Range > 1)
         {
-            foreach (var exit in Rooms[Start].SortedExits(true))
+            Debug.Log("---- From room "+Start);
+            foreach (var exit in Rooms[Start].SortedExits(isPowerbot))
             {
-                int dist = RoomInRange(exit, Destination, Range - 1, Visited);
-                if (dist > 0) return dist + 1;
+                int dist = RoomInRange(exit, Destination, Range - 1, Visited)+1;
+                Debug.Log("  --- Exit "+exit+" is "+(dist-1));
+                if (dist > 1 && dist < 10000 && dist < closest)
+                {
+                    closest = dist;
+                }
             }
+            Debug.Log("          ---- Closest is "+closest);
         }
-        return 0;
+        return closest;
     }
 
     //Stores the results of previous RoomInRange Calculations
@@ -147,5 +185,7 @@ public class ThreatNavManager : MonoBehaviour
         {
             if (threat.Location == SignaledRoom) threat.AudioSignal();
         }
+        
+        
     }
 }

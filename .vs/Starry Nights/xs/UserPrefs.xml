@@ -1,18 +1,21 @@
 ﻿<Properties StartupConfiguration="{7A7326D1-2877-D073-08D3-C03498605981}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Threat Children/Beta.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PhoneButton.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameManager.cs" Line="62" Column="1" />
-      <File FileName="Assets/Scripts/OfficeManager.cs" />
-      <File FileName="Assets/Scripts/PowerManager.cs" Line="57" Column="6" />
-      <File FileName="Assets/Scripts/AudioRepel.cs" Line="14" Column="62" />
-      <File FileName="Assets/Scripts/Room.cs" />
-      <File FileName="Assets/Scripts/Threat.cs" Line="8" Column="27" />
-      <File FileName="Assets/Scripts/ThreatNavManager.cs" Line="138" Column="19" />
-      <File FileName="Assets/Scripts/CameraScripts/CameraControl.cs" Line="63" Column="53" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="53" Column="6" />
+      <File FileName="Assets/Scripts/OfficeManager.cs" Line="209" Column="55" />
+      <File FileName="Assets/Scripts/PowerManager.cs" Line="106" Column="6" />
+      <File FileName="Assets/Scripts/AudioRepel.cs" />
+      <File FileName="Assets/Scripts/Room.cs" Line="77" Column="44" />
+      <File FileName="Assets/Scripts/Threat.cs" Line="76" Column="99" />
+      <File FileName="Assets/Scripts/ThreatNavManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CameraScripts/CameraControl.cs" Line="125" Column="6" />
       <File FileName="Assets/Scripts/CameraScripts/CameraView.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Threat Children/Alpha.cs" Line="43" Column="6" />
-      <File FileName="Assets/Scripts/Threat Children/Beta.cs" Line="6" Column="2" />
-      <File FileName="Assets/Scripts/Threat Children/Serpent.cs" Line="4" Column="1" />
+      <File FileName="Assets/Scripts/Threat Children/Alpha.cs" />
+      <File FileName="Assets/Scripts/Threat Children/Beta.cs" />
+      <File FileName="Assets/Scripts/Threat Children/Serpent.cs" />
+      <File FileName="Assets/Scripts/JumpscareManager.cs" Line="56" Column="22" />
+      <File FileName="Assets/Scripts/PhoneGuy.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/PhoneButton.cs" Line="14" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,9 +24,8 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="CameraScripts" expanded="True" />
-                <Node name="Threat Children" expanded="True">
-                  <Node name="Beta.cs" selected="True" />
-                </Node>
+                <Node name="Threat Children" expanded="True" />
+                <Node name="PhoneButton.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -33,7 +35,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e72ba8ae-6a13-4833-9865-79a3d758522c" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ea750301-d723-4a6c-a67b-e3daf4fba42d" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -9,6 +9,7 @@ public class PowerManager : MonoBehaviour
     public static PowerManager Instance;
 
     public Text PowerDisplay;
+    public Slider PowerGauge;
 
     public bool BlackedOut = false;
 
@@ -16,13 +17,18 @@ public class PowerManager : MonoBehaviour
     public float IdleDrain = 0.01f;
     public float DoorDrain = 0.5f;
     public float PhoneDrain = 1f;
+    public float AlarmDrain = 0.5f;
     public bool PowerbotShutdown = false;
     public GameObject BlackoutSprite1;
     public GameObject BlackoutSprite2;
+    public GameObject BlackOutPowerDisplay;
 
     //Allows calculation of length of time for Night 1 Powerbot blackouts
     public float MaxPowerOnTime = 5;
     public float RemainingPowerOnTime = 0;
+
+    //In-game Clock (specifically the panel it's attached to) 
+    public GameObject ClockPanel;
 
     //Calculates remaining power
     public float remainingPower;
@@ -87,11 +93,20 @@ public class PowerManager : MonoBehaviour
                 {
                     BlackoutSprite1.SetActive(false);
                     BlackoutSprite2.SetActive(false);
+                    BlackOutPowerDisplay.SetActive(false);
                     PowerbotShutdown = false;
                     BlackedOut = false;
+                    ClockPanel.SetActive(true);
                 }
             }
         }
+    }
+
+    public void HideOverlays()
+    {
+        BlackOutPowerDisplay.SetActive(false);
+        BlackoutSprite2.SetActive(false);
+        ClockPanel.SetActive(false);
     }
 
     void FixedUpdate()
@@ -112,6 +127,11 @@ public class PowerManager : MonoBehaviour
         RemainingPower -= PhoneDrain;
     }
 
+    public void AlarmRings()
+    {
+        RemainingPower -= AlarmDrain;
+    }
+
     //Tells the manager what to do in a blackout
     public void Blackout(bool OutOfPower)
     {
@@ -122,6 +142,8 @@ public class PowerManager : MonoBehaviour
         }
         BlackoutSprite1.SetActive(true);
         BlackoutSprite2.SetActive(true);
+        BlackOutPowerDisplay.SetActive(true);
+        ClockPanel.SetActive(false);
         OfficeManager.Instance.PowerOff();
         if (PowerbotShutdown && GameManager.Instance.NightNumber == 1)
         {
@@ -131,10 +153,16 @@ public class PowerManager : MonoBehaviour
 
     public void UpdatePowerDisplay()
     {
+        int DisplayedPower = (int)Mathf.Ceil(RemainingPower);
+
         if (PowerDisplay != null)
         {
-            int DisplayedPower = (int)Mathf.Ceil(RemainingPower);
             PowerDisplay.text = DisplayedPower.ToString() + "%";
+        }
+
+        if (PowerGauge != null)
+        {
+            PowerGauge.value = RemainingPower;
         }
     }
 }

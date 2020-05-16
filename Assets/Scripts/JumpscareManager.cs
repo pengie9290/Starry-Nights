@@ -33,6 +33,7 @@ public class JumpscareManager : MonoBehaviour
             PlayScareSound();
             CameraControl.Instance.DeactivateCameras();
             GameManager.Instance.PlayerDeath();
+            OfficeManager.Instance.HideOverlay();
         }
     }
 
@@ -40,5 +41,18 @@ public class JumpscareManager : MonoBehaviour
     {
         AudioSource Source = gameObject.GetComponent<AudioSource>();
         if (Source != null) Source.Play();
+    }
+
+    public bool ForcedJumpscare()
+    {
+        foreach (var threat in ThreatNavManager.Instance.Threats)
+        {
+            if (threat.gameObject.activeSelf && threat.ThreatID > 0)
+            {
+                PlayJumpscare(threat.ThreatID);
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 
 [Serializable]
@@ -46,9 +47,15 @@ public class Room
         {
             Result.Sort((a, b) =>
             {
-                int distA = ThreatNavManager.Instance.RoomInRange(a, destination, 9);
-                int distB = ThreatNavManager.Instance.RoomInRange(b, destination, 9);
-                return distA.CompareTo(distB);
+                int distA = ThreatNavManager.Instance.RoomInRange(a, destination, 9, null, isPowerBot, PassesBars);
+                int distB = ThreatNavManager.Instance.RoomInRange(b, destination, 9, null, isPowerBot, PassesBars);
+                
+                int comp = distA.CompareTo(distB);
+                
+                // Randomize equal value ties
+                if (comp == 0)
+                    comp = (UnityEngine.Random.Range(0,10) > 5) ? 1 : -1;
+                return comp;
             });
         }
         string message = "destination = " + destination + "; ";
