@@ -41,7 +41,17 @@ public class Alpha : Threat
     public override void DetermineNextStep()
     {
         Debug.Log("DetermineNextStep OVERRIDDEN");
-        if (!IsUpset) base.DetermineNextStep();
+        if (!IsUpset)
+        {
+            if (Destination <= 0)
+            {
+                base.DetermineNextStep();
+            }
+            else
+            {
+                Location = MoveTowards(Destination);
+            }
+        }
         else
         {
             Location = MoveTowards(UpsetDestination, null, IsUpset);
@@ -50,6 +60,7 @@ public class Alpha : Threat
 
     public override bool CanEnterRoom(int destination)
     {
+        CheckDestinationArrival(destination);
         switch (destination)
         {
             case 16:

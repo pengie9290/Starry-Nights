@@ -49,6 +49,8 @@ public class Threat : MonoBehaviour
 
     private int PreviousLocation = -1;
 
+    public int Destination = -1;
+
     public bool PassesBars = false;
 
     //ID 0 = Powerbot
@@ -177,6 +179,7 @@ public class Threat : MonoBehaviour
             destination = AudiblePhoneRinging;
         }
 
+        if (Destination > 0) destination = Destination;
         float MovementEfficiency = AILevel/2;
         if (destination == -1)
         {
@@ -203,8 +206,8 @@ public class Threat : MonoBehaviour
             {
                 Debug.Log("Phone Is Ringing");
 
-                int inRange = ThreatNavManager.Instance.RoomInRange(Location, CurrentPhone, 2);
-                if (inRange > 0 && inRange < 3)
+                int inRange = ThreatNavManager.Instance.RoomInRange(Location, CurrentPhone, 3);
+                if (inRange > 0 && inRange < 4)
                 {
                     Debug.Log("I hear Phone " + CurrentPhone);
                     return CurrentPhone;
@@ -267,8 +270,40 @@ public class Threat : MonoBehaviour
         }
     }
 
+    //Checks to see if threat is at its destination
+    public void CheckDestinationArrival(int destination)
+    {
+        if (ThreatID == 1 || ThreatID == 2)
+        {
+            if (Destination == destination)
+            {
+                Destination = -1;
+            }
+            else
+            {
+                switch (Location)
+                {
+                    case 16:
+                        if (OfficeManager.Instance.LeftDoorBarred)
+                        {
+                            Destination = ThreatNavManager.Instance.SelectRandomLab;
+                        }
+                        break;
+                    case 17:
+                        if (OfficeManager.Instance.RightDoorBarred)
+                        {
+                            Destination = ThreatNavManager.Instance.SelectRandomLab;
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+
     public virtual bool CanEnterRoom(int destination)
     {
+        CheckDestinationArrival(destination);
         return true;
     }
 }

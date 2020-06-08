@@ -24,6 +24,16 @@ public class ThreatNavManager : MonoBehaviour
     public static List<int> LeftHall = new List<int>(new int[] { 2, 5, 9, 13, 16 });
     public static List<int> RightHall = new List<int>(new int[] { 3, 6, 10, 14, 17 });
 
+    //Stores location of laboratories
+    public static List<int> Labs = new List<int>(new int[] { 4, 7, 8, 11, 12, 15 });
+    public int SelectRandomLab
+    {
+        get
+        {
+            return Labs[Random.Range(0, Labs.Count)];
+        }
+    }
+
     //Stores list of all threats, active or otherwise
     public List<Threat> Threats = new List<Threat>();
 
